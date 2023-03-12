@@ -1,29 +1,18 @@
-
-use bevy::prelude::*;
-use bevy::app::App;
-
-fn hello_world(){
-    println!("hello world!");
-}
-
-#[derive(Component)]
-struct Person;
-
-#[derive(Component)]
-struct Name(String);
-
-fn add_people(mut commands: Commands){
-    commands.spawn((Person, Name("Elaina Proctor".to_string())));
-    commands.spawn((Person, Name("Renzo Hume".to_string())));
-    commands.spawn((Person, Name("Zayna Nieves".to_string())));
-}
+use bevy::{prelude::*, sprite::collide_aabb::collide};
+use enemy::*;
+use player::*;
+use common_components::*;
 
 
 
 
-fn main() {
+fn main(){
     App::new()
-        .add_startup_system(add_people)
-        .add_system(hello_world)
+        .add_plugins(DefaultPlugins)
+        .add_startup_system(setup)
+        .add_plugin(PlayerPlugin)
+        .add_system(detect_collisions)
         .run();
+
 }
+
